@@ -1,0 +1,59 @@
+'''
+algo:
+
+windowStart, max_len
+substr # length
+set # check unique char
+
+
+iterate through entire list:
+    get char
+    
+    while char is in set (keep shrinking sliding window until delete char):
+        remove first char set
+        remove first char in substr
+        move sliding window forward
+    
+    add char to substr
+    add char to set
+    update max_len with substr_len
+return max_len
+        
+'''
+
+def non_repeat_substring(str):
+    windowStart, max_len = 0, 0
+    substr = []
+    set = {}
+    
+    for windowEnd in range(len(str)):
+        c = str[windowEnd]
+        
+        while c in set:
+            first_char = substr[0]
+            set.remove(first_char)
+            substr -= substr[0]
+            windowStart += 1
+        
+        substr.append(c)
+        set.add(c)
+        max_len = max(max_len, len(substr))
+        
+    return max_len
+    
+'''
+Example: str = "aabccbb"
+
+1st round:
+right_char = a
+char_index_map[right_char] = 0
+max_len = 1
+
+2nd round:
+right_char = a
+windowStart = 1
+char_index_map[a] = 1
+max_len = 
+
+
+'''

@@ -1,0 +1,38 @@
+''' Problem Statement: Given a string, find the length of the longest substring in it with no more than K distinct characters.
+
+Clarify: k is positive'''
+
+'''
+Algo:
+
+iterate through the entire list:
+    get substr[windowStart : windowEnd + 1]
+    count distinct character
+    
+    if distinct_char <= k:
+        update max len with len(substr)
+    else:
+        move the sliding window 1 step forward
+'''
+
+
+def longest_substring_with_k_distinct(str, k):
+    windowStart, max_len, distinct_count = 0, 0, 0
+    substr = ""
+    
+    for windowEnd in range(len(str)):
+        substr = str[windowStart: windowEnd + 1]
+        
+        distinct_count = len(set(substr))
+        
+        if distinct_count <= k:
+            max_len = max(max_len, len(substr))
+        else:
+            windowStart += 1
+    return max_len
+        
+        
+            
+            
+            
+    

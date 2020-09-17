@@ -1,0 +1,50 @@
+
+
+
+'''
+Explanation:
+Sliding window
+
+keep track of 1) no of fruit types, 2) # in 2 basket, 3) maxsum
+
+for every tree:
+    get all tree from start of sliding window to window end
+    count distinct fruit tree
+
+    if distinct fruit tree < 3: 
+        Count frequency of fruits 
+        maxsum 2 fruits
+    else:
+        move sliding window forward (windowStart++)
+
+
+    
+return maxsum
+
+'''
+
+def fruits_into_baskets(fruits):
+    windowStart, max_sum = 0, 0
+    fruit_type_count = basket1 = basket2 = 0
+    frequency = {}
+    
+    for windowEnd in range(len(fruits)):
+        sub_tree = fruits[windowStart: windowEnd+1]
+        fruit_type_count = len(set(sub_tree))
+        
+        if fruit_type_count <= 2:
+            # count fruit
+            for fruit in sub_tree:
+                if fruit in frequency:
+                    frequency[fruit] += 1
+                else:
+                    frequency[fruit] = 1
+                    
+            local_sum = sum(frequency.values())
+            max_sum = max(max_sum, local_sum)
+        else:
+            windowStart += 1
+            
+    return max_sum
+            
+            
